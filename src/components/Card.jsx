@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import SinglePolitician from "./SinglePolitician";
 
 import './card.css'
 
@@ -30,6 +31,8 @@ export default function Card() {
         );
     });
 
+    console.log("Card principale ri-renderizzata");
+
     return (
         <>
             <div className="card-container">
@@ -42,15 +45,14 @@ export default function Card() {
                 />
 
                 {filteredpoliticians.map((politico) => (
-                    <div key={politico.id}
-                        className="politico-card">
-                        <h3>{politico.name}</h3>
-                        <div>
-                            <img src={politico.image} className="politico-img"></img>
-                        </div>
-                        <span className="carica">{politico.position}</span>
-                        <span>{politico.biography}</span>
-                    </div>
+                    <SinglePolitician
+                        key={politico.id}
+                        id={politico.id}
+                        name={politico.name}
+                        image={politico.image}
+                        position={politico.position}
+                        biography={politico.biography}
+                    />
                 ))}
             </div>
         </>
