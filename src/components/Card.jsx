@@ -5,6 +5,7 @@ import './card.css'
 export default function Card() {
 
     const [politicians, setPoliticians] = useState([]);
+    const [search, setSearch] = useState("");
 
     async function getPoliticians() {
         try {
@@ -22,10 +23,25 @@ export default function Card() {
         getPoliticians();
     }, [])
 
+    const filteredpoliticians = politicians.filter((politico) => {
+        const searchLower = search.toLowerCase();
+        return (
+            politico.name.toLowerCase().includes(searchLower) || politico.biography.toLowerCase().includes(searchLower)
+        );
+    });
+
     return (
         <>
             <div className="card-container">
-                {politicians.map((politico) => (
+
+                <input
+                    type="text"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    className="searchbar"
+                />
+
+                {filteredpoliticians.map((politico) => (
                     <div key={politico.id}
                         className="politico-card">
                         <h3>{politico.name}</h3>
